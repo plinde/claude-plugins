@@ -22,37 +22,42 @@ This plugin intercepts WebFetch calls to GitHub URLs and blocks them before exec
 
 ## Installation
 
-### Option 1: Manual Installation (Local Plugin)
+### Via Marketplace (Recommended)
 
-1. Clone or download this plugin:
+1. Add the marketplace to Claude Code:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/github-webfetch-blocker-plugin.git
+   /plugin marketplace add plinde/claude-plugins
    ```
 
-2. Install as a local plugin by symlinking or copying to your Claude Code plugins directory:
+2. Install the plugin:
    ```bash
-   # Create a plugins directory if it doesn't exist
-   mkdir -p ~/.claude/plugins
-
-   # Symlink the plugin
-   ln -s /path/to/github-webfetch-blocker-plugin ~/.claude/plugins/github-webfetch-blocker
+   /plugin install github-webfetch-blocker@plinde-plugins
    ```
 
-3. Enable the plugin in your `~/.claude/settings.json`:
-   ```json
-   {
-     "enabledPlugins": {
-       "github-webfetch-blocker": true
-     }
-   }
+3. The plugin is automatically enabled. Verify with:
+   ```bash
+   /plugin list
    ```
 
-### Option 2: Plugin Marketplace (Future)
+### Manual Installation (Development/Testing)
 
-Once published to a Claude Code plugin marketplace, you can install via:
-```bash
-claude plugins install github-webfetch-blocker
-```
+For local development or testing:
+
+1. Clone the marketplace repository:
+   ```bash
+   git clone https://github.com/plinde/claude-plugins.git
+   ```
+
+2. Add as a local marketplace:
+   ```bash
+   cd claude-plugins
+   /plugin marketplace add .
+   ```
+
+3. Install the plugin:
+   ```bash
+   /plugin install github-webfetch-blocker@plinde-plugins
+   ```
 
 ## Usage
 
@@ -103,20 +108,20 @@ No additional configuration needed. The plugin works out of the box once enabled
 
 ### Plugin not blocking GitHub URLs
 
-1. Check plugin is enabled in settings:
+1. Check plugin is installed and enabled:
+   ```bash
+   /plugin list
+   ```
+
+2. Verify the plugin in settings:
    ```bash
    cat ~/.claude/settings.json | jq '.enabledPlugins'
    ```
 
-2. Verify hook script is executable:
+3. Reinstall if needed:
    ```bash
-   ls -l ~/.claude/plugins/github-webfetch-blocker/scripts/block-github-webfetch.sh
-   ```
-
-3. Test the hook manually:
-   ```bash
-   echo '{"tool_name": "WebFetch", "parameters": {"url": "https://github.com/org/repo"}}' | \
-     ~/.claude/plugins/github-webfetch-blocker/scripts/block-github-webfetch.sh
+   /plugin uninstall github-webfetch-blocker@plinde-plugins
+   /plugin install github-webfetch-blocker@plinde-plugins
    ```
 
 ### gh CLI commands not working
@@ -135,8 +140,10 @@ gh auth login
 
 ```
 github-webfetch-blocker-plugin/
+├── .claude-plugin/
+│   └── plugin.json                     # Plugin metadata
 ├── README.md                           # This file
-├── plugin.json                         # Plugin metadata
+├── LICENSE                             # MIT License
 ├── hooks/
 │   └── hooks.json                      # Hook configuration
 └── scripts/

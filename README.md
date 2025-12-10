@@ -1,6 +1,6 @@
-# Claude Code Plugins
+# Claude Code Plugins Marketplace
 
-A collection of Claude Code plugins for enhancing functionality and workflow automation.
+A plugin marketplace for Claude Code with plugins for workflow automation and enhanced functionality.
 
 ## Available Plugins
 
@@ -8,73 +8,115 @@ A collection of Claude Code plugins for enhancing functionality and workflow aut
 
 Prevents WebFetch attempts on GitHub URLs and redirects to authenticated gh CLI instead.
 
-**Location:** `github-webfetch-blocker-plugin/`
-
 **Purpose:** Blocks WebFetch calls to github.com to prevent 404 errors on private repositories, providing guidance to use gh CLI with proper authentication.
 
 **[Full Documentation →](github-webfetch-blocker-plugin/README.md)**
 
 ## Installation
 
+### Quick Start
+
+Add this marketplace to Claude Code:
+
+```bash
+/plugin marketplace add plinde/claude-plugins
+```
+
+Then install plugins:
+
+```bash
+# Browse available plugins
+/plugin
+
+# Install github-webfetch-blocker
+/plugin install github-webfetch-blocker@plinde-plugins
+```
+
 ### Prerequisites
 
 - Claude Code v0.1.0 or higher
-- Plugin directory: `~/.claude/plugins/`
 
-### Installing Plugins
+### Step-by-Step Installation
 
-Each plugin can be installed by symlinking or copying to your Claude Code plugins directory:
+1. **Add the marketplace** (one-time setup):
+   ```bash
+   /plugin marketplace add plinde/claude-plugins
+   ```
+
+2. **Browse available plugins**:
+   ```bash
+   /plugin
+   ```
+   This opens an interactive browser to explore plugins.
+
+3. **Install a plugin**:
+   ```bash
+   /plugin install github-webfetch-blocker@plinde-plugins
+   ```
+
+4. **The plugin is automatically enabled**. To verify:
+   ```bash
+   /plugin list
+   ```
+
+### Managing Plugins
 
 ```bash
-# Create plugins directory if needed
-mkdir -p ~/.claude/plugins
+# List installed plugins
+/plugin list
 
-# Install github-webfetch-blocker
-ln -s /Users/plinde/workspace/github.com/plinde/claude-plugins/github-webfetch-blocker-plugin ~/.claude/plugins/github-webfetch-blocker
+# Disable a plugin (keeps it installed)
+/plugin disable github-webfetch-blocker@plinde-plugins
+
+# Enable a disabled plugin
+/plugin enable github-webfetch-blocker@plinde-plugins
+
+# Uninstall a plugin
+/plugin uninstall github-webfetch-blocker@plinde-plugins
+
+# Update marketplace catalog
+/plugin marketplace update plinde-plugins
+
+# Remove marketplace
+/plugin marketplace remove plinde-plugins
 ```
 
-### Enabling Plugins
+### Team Distribution
 
-Add the plugin to your `~/.claude/settings.json`:
+For team-wide plugin distribution, add to your project's `.claude/settings.json`:
 
 ```json
 {
+  "extraKnownMarketplaces": {
+    "plinde-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "plinde/claude-plugins"
+      }
+    }
+  },
   "enabledPlugins": {
-    "github-webfetch-blocker": true
+    "github-webfetch-blocker@plinde-plugins": true
   }
 }
 ```
 
-Or use jq to enable programmatically:
+When team members trust the repository, Claude Code will automatically:
+- Add the marketplace
+- Install and enable specified plugins
 
-```bash
-# Enable github-webfetch-blocker
-jq '.enabledPlugins["github-webfetch-blocker"] = true' ~/.claude/settings.json > /tmp/settings.json && mv /tmp/settings.json ~/.claude/settings.json
-```
-
-### Verifying Installation
-
-```bash
-# Check enabled plugins
-cat ~/.claude/settings.json | jq '.enabledPlugins'
-
-# Verify symlink
-ls -l ~/.claude/plugins/
-
-# Test github-webfetch-blocker hook manually
-echo '{"tool_name": "WebFetch", "parameters": {"url": "https://github.com/org/repo"}}' | \
-  ~/.claude/plugins/github-webfetch-blocker/scripts/block-github-webfetch.sh
-```
-
-## Plugin Structure
+## Marketplace Structure
 
 ```
 claude-plugins/
+├── .claude-plugin/
+│   └── marketplace.json                # Marketplace definition
 ├── README.md                           # This file
 └── github-webfetch-blocker-plugin/
+    ├── .claude-plugin/
+    │   └── plugin.json                 # Plugin metadata
     ├── README.md                       # Plugin documentation
     ├── LICENSE                         # MIT License
-    ├── plugin.json                     # Plugin metadata
     ├── hooks/
     │   └── hooks.json                  # Hook configuration
     └── scripts/
@@ -83,31 +125,77 @@ claude-plugins/
 
 ## Development
 
+### Testing Locally
+
+Before publishing, test with a local marketplace:
+
+```bash
+# Clone the repository
+git clone https://github.com/plinde/claude-plugins.git
+cd claude-plugins
+
+# Add as local marketplace
+/plugin marketplace add .
+
+# Install plugin locally
+/plugin install github-webfetch-blocker@plinde-plugins
+```
+
 ### Creating New Plugins
 
 1. Create a new directory: `<plugin-name>-plugin/`
-2. Add required files:
-   - `plugin.json` - Plugin metadata
+
+2. Create plugin manifest at `.claude-plugin/plugin.json`:
+   ```json
+   {
+     "name": "plugin-name",
+     "version": "1.0.0",
+     "description": "Plugin description",
+     "author": "Your Name",
+     "license": "MIT"
+   }
+   ```
+
+3. Add plugin components:
    - `README.md` - Plugin documentation
    - `LICENSE` - License file
-   - `hooks/hooks.json` - Hook configuration (if applicable)
-   - `scripts/` - Hook scripts or utilities
+   - `hooks/hooks.json` - Hook configuration (optional)
+   - `commands/` - Slash commands (optional)
+   - `agents/` - Custom agents (optional)
+   - `scripts/` - Supporting scripts
 
-3. Follow naming conventions:
-   - Plugin directories: `<name>-plugin/`
-   - Plugin IDs in settings: `<name>` (without -plugin suffix)
+4. Add to marketplace catalog (`.claude-plugin/marketplace.json`):
+   ```json
+   {
+     "plugins": [
+       {
+         "name": "plugin-name",
+         "source": "./plugin-name-plugin",
+         "description": "Plugin description",
+         "version": "1.0.0"
+       }
+     ]
+   }
+   ```
 
-### Testing Hooks
+### Testing Plugins
 
-Test hook scripts manually before enabling:
+Test hook scripts manually:
 
 ```bash
-# Example: Test PreToolUse hook
+# Test PreToolUse hook
 echo '{"tool_name": "ToolName", "parameters": {...}}' | \
   ./plugin-name-plugin/scripts/hook-script.sh
 
-# Check exit code
+# Check exit code (0 = allow, 1 = block)
 echo $?
+```
+
+Test via local marketplace:
+
+```bash
+/plugin marketplace add .
+/plugin install plugin-name@plinde-plugins
 ```
 
 ## Contributing
