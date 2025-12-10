@@ -16,9 +16,9 @@ This plugin intercepts WebFetch calls to GitHub URLs and blocks them before exec
 ## Features
 
 - 🚫 **Blocks WebFetch on GitHub URLs** - Prevents 404 errors on private repos
-- ✅ **Provides helpful guidance** - Suggests appropriate gh CLI commands
+- ✅ **Smart command suggestions** - Parses URLs and suggests specific gh CLI commands
 - 🔒 **Uses authenticated access** - Leverages your existing gh CLI authentication
-- 📚 **References github-cli skill** - Points to comprehensive gh CLI patterns
+- 🎯 **Context-aware help** - Different suggestions for PRs, issues, and repos
 
 ## Installation
 
@@ -71,19 +71,32 @@ Once installed and enabled, the plugin automatically intercepts WebFetch calls t
   ⎿  Error: Request failed with status code 404
 ```
 
-**After (blocked with helpful message):**
+**After (blocked with smart suggestions):**
 ```
 ⏺ Fetch(https://github.com/mycompany/myrepo/pull/123/)
   ⎿  ❌ BLOCKED: WebFetch on GitHub URLs
 
   GitHub URLs require authentication and will return 404 errors for private repositories.
 
-  ✅ Use gh CLI instead:
-     - For PR info: gh pr view 123
-     - For PR diff: gh pr diff 123
-     - For PR comments: gh pr view 123 --comments
-     - For repo info: gh repo view mycompany/myrepo
-     - For API access: gh api repos/mycompany/myrepo/pulls/123
+  ✅ Use gh CLI instead with authenticated access:
+
+  Suggested commands for this PR:
+     gh pr view 123 --repo mycompany/myrepo --json title,body,state,author
+     gh pr diff 123 --repo mycompany/myrepo
+     gh pr view 123 --repo mycompany/myrepo --comments
+     gh api repos/mycompany/myrepo/pulls/123
+
+  Examples:
+     # Get JSON output for parsing
+     gh pr view 123 --repo owner/repo --json title,body,state,author,comments
+
+     # Get diff for code review
+     gh pr diff 123 --repo owner/repo
+
+     # Direct API access for advanced queries
+     gh api repos/owner/repo/pulls/123
+     gh api repos/owner/repo/pulls/123/files
+     gh api repos/owner/repo/pulls/123/comments
 ```
 
 ## How It Works
@@ -91,7 +104,11 @@ Once installed and enabled, the plugin automatically intercepts WebFetch calls t
 The plugin registers a PreToolUse hook that:
 1. Intercepts WebFetch tool calls before execution
 2. Checks if the URL contains `github.com`
-3. If yes: blocks with exit code 1 and shows helpful message
+3. If yes:
+   - Parses the URL to identify the type (PR, issue, repo, or generic)
+   - Extracts owner, repo name, and resource number if applicable
+   - Generates specific `gh` CLI commands tailored to that URL
+   - Blocks with exit code 1 and shows context-aware suggestions
 4. If no: allows WebFetch to proceed normally
 
 ## Requirements
