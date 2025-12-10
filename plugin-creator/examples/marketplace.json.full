@@ -1,0 +1,44 @@
+{
+  "name": "my-marketplace",
+  "owner": {
+    "name": "Your Organization",
+    "email": "contact@example.com"
+  },
+  "metadata": {
+    "description": "A collection of plugins for specific use cases",
+    "version": "1.0.0",
+    "homepage": "https://github.com/org/marketplace",
+    "repository": "https://github.com/org/marketplace"
+  },
+  "plugins": [
+    {
+      "name": "local-plugin",
+      "source": "./plugins/local-plugin",
+      "description": "Plugin hosted in this repository",
+      "version": "1.0.0",
+      "author": {
+        "name": "Plugin Author"
+      },
+      "license": "MIT",
+      "keywords": ["tag1", "tag2"]
+    },
+    {
+      "name": "github-plugin",
+      "source": {
+        "source": "github",
+        "repo": "owner/plugin-repo"
+      },
+      "description": "Plugin from external GitHub repository",
+      "version": "2.0.0"
+    },
+    {
+      "name": "git-plugin",
+      "source": {
+        "source": "url",
+        "url": "https://gitlab.com/user/plugin.git"
+      },
+      "description": "Plugin from GitLab or other git service",
+      "version": "1.5.0"
+    }
+  ]
+}

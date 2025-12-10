@@ -26,6 +26,22 @@
       "keywords": ["github", "security", "hooks", "gh-cli"],
       "category": "security",
       "tags": ["github", "authentication", "hooks"]
+    },
+    {
+      "name": "plugin-creator",
+      "source": "./plugin-creator",
+      "description": "Tools for creating and validating Claude Code plugins and marketplaces with schema compliance checking",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Linde",
+        "email": "plinde@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/plinde/claude-plugins/tree/main/plugin-creator",
+      "repository": "https://github.com/plinde/claude-plugins",
+      "license": "MIT",
+      "keywords": ["plugin", "validation", "development", "schema", "marketplace"],
+      "category": "development",
+      "tags": ["validation", "development", "tools"]
     }
   ]
 }

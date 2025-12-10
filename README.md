@@ -12,6 +12,14 @@ Prevents WebFetch attempts on GitHub URLs and redirects to authenticated gh CLI 
 
 **[Full Documentation →](github-webfetch-blocker/README.md)**
 
+### 🛠️ plugin-creator
+
+Tools for creating and validating Claude Code plugins and marketplaces.
+
+**Purpose:** Provides validation scripts, templates, and tools for building Claude Code plugins with schema compliance checking. Includes validators for plugin.json and marketplace.json manifests.
+
+**[Full Documentation →](plugin-creator/README.md)**
+
 ## Installation
 
 ### Quick Start

@@ -1,7 +1,7 @@
 # Makefile for claude-plugins marketplace validation
 
-# Path to validation scripts
-VALIDATOR_DIR := $(HOME)/.claude/skills/plugin-creator/scripts
+# Path to validation scripts (from plugin-creator plugin)
+VALIDATOR_DIR := plugin-creator/scripts
 VALIDATE_PLUGIN := $(VALIDATOR_DIR)/validate-plugin.sh
 VALIDATE_MARKETPLACE := $(VALIDATOR_DIR)/validate-marketplace.sh
 
