@@ -12,27 +12,38 @@
   },
   "plugins": [
     {
-      "name": "local-plugin",
-      "source": "./plugins/local-plugin",
-      "description": "Plugin hosted in this repository",
+      "name": "local-dev-plugin",
+      "source": "./plugins/local-dev-plugin",
+      "description": "Plugin with local source (for development only)",
       "version": "1.0.0",
       "author": {
         "name": "Plugin Author"
       },
       "license": "MIT",
-      "keywords": ["tag1", "tag2"]
+      "keywords": ["development", "local"]
     },
     {
-      "name": "github-plugin",
+      "name": "github-url-plugin",
+      "source": "https://github.com/owner/plugin-repo",
+      "description": "Plugin from GitHub repository (recommended for published plugins)",
+      "version": "2.0.0",
+      "author": {
+        "name": "Plugin Author"
+      },
+      "license": "MIT",
+      "keywords": ["github", "published"]
+    },
+    {
+      "name": "github-object-plugin",
       "source": {
         "source": "github",
         "repo": "owner/plugin-repo"
       },
-      "description": "Plugin from external GitHub repository",
+      "description": "Plugin from GitHub using object format (alternative syntax)",
       "version": "2.0.0"
     },
     {
-      "name": "git-plugin",
+      "name": "git-url-plugin",
       "source": {
         "source": "url",
         "url": "https://gitlab.com/user/plugin.git"

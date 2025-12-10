@@ -13,7 +13,7 @@
   "plugins": [
     {
       "name": "github-webfetch-blocker",
-      "source": "./github-webfetch-blocker",
+      "source": "https://github.com/plinde/claude-plugins",
       "description": "Blocks WebFetch attempts on GitHub URLs and redirects to gh CLI for authenticated access",
       "version": "1.0.1",
       "author": {
@@ -29,9 +29,9 @@
     },
     {
       "name": "plugin-creator",
-      "source": "./plugin-creator",
+      "source": "https://github.com/plinde/claude-plugins",
       "description": "Tools for creating and validating Claude Code plugins and marketplaces with schema compliance checking",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Peter Linde",
         "email": "plinde@users.noreply.github.com"

@@ -171,23 +171,49 @@ cat $PLUGIN_DIR/examples/marketplace.json.minimal > my-marketplace/.claude-plugi
 
 ### 3. Add plugins
 
-Edit the `plugins` array to include your plugins:
+Edit the `plugins` array to include your plugins.
 
+#### Source Options
+
+The `source` field determines where plugins are installed from:
+
+**Local Path** (for development/testing):
 ```json
 {
-  "name": "my-marketplace",
-  "owner": {
-    "name": "Your Name"
-  },
-  "plugins": [
-    {
-      "name": "my-plugin",
-      "source": "./my-plugin",
-      "description": "Plugin description",
-      "version": "1.0.0"
-    }
-  ]
+  "name": "my-plugin",
+  "source": "./my-plugin",
+  "description": "Plugin description",
+  "version": "1.0.0"
 }
+```
+
+**GitHub URL** (recommended for published marketplaces):
+```json
+{
+  "name": "my-plugin",
+  "source": "https://github.com/owner/repo",
+  "description": "Plugin description",
+  "version": "1.0.0"
+}
+```
+
+**Combined Approach** (best practice):
+- Keep plugin source code in your repository for version control
+- Use GitHub URL in marketplace.json for stable installations
+- Users install from published GitHub version
+- You maintain code locally and push updates
+
+Example repository structure:
+```
+my-marketplace/
+├── .claude-plugin/
+│   └── marketplace.json          # Uses GitHub URLs
+├── my-plugin/                     # Source code in repo
+│   └── .claude-plugin/
+│       └── plugin.json
+└── another-plugin/                # Source code in repo
+    └── .claude-plugin/
+        └── plugin.json
 ```
 
 ### 4. Validate

@@ -1,7 +1,7 @@
 # Makefile for claude-plugins marketplace validation
 
 # Path to validation scripts (from plugin-creator plugin)
-VALIDATOR_DIR := plugin-creator/scripts
+VALIDATOR_DIR := $(HOME)/.claude/plugins/marketplaces/plinde-plugins/plugin-creator/scripts
 VALIDATE_PLUGIN := $(VALIDATOR_DIR)/validate-plugin.sh
 VALIDATE_MARKETPLACE := $(VALIDATOR_DIR)/validate-marketplace.sh
 
@@ -47,6 +47,35 @@ list-plugins: ## List all plugins in the marketplace
 	@echo "Plugins in marketplace:"
 	@jq -r '.plugins[] | "  - \(.name) (v\(.version // "unversioned")): \(.description)"' $(MARKETPLACE_JSON)
 
+.PHONY: install-marketplace
+install-marketplace: ## Install this marketplace to Claude Code
+	@echo "Installing plinde-plugins marketplace..."
+	@claude plugin marketplace add $(CURDIR)
+	@echo "✅ Marketplace installed"
+
+.PHONY: install-plugin
+install-plugin: ## Install a specific plugin (usage: make install-plugin PLUGIN=plugin-name)
+ifndef PLUGIN
+	@echo "❌ Error: PLUGIN variable not set"
+	@echo "Usage: make install-plugin PLUGIN=plugin-name"
+	@echo ""
+	@echo "Available plugins:"
+	@jq -r '.plugins[] | "  - \(.name)"' $(MARKETPLACE_JSON)
+	@exit 1
+endif
+	@echo "Installing plugin: $(PLUGIN)..."
+	@claude plugin install $(PLUGIN)@plinde-plugins
+	@echo "✅ Plugin $(PLUGIN) installed"
+
+.PHONY: install-all
+install-all: ## Install all plugins from this marketplace
+	@echo "Installing all plugins from plinde-plugins marketplace..."
+	@jq -r '.plugins[] | .name' $(MARKETPLACE_JSON) | while read plugin; do \
+		echo "Installing $$plugin..."; \
+		claude plugin install $$plugin@plinde-plugins || exit 1; \
+	done
+	@echo "✅ All plugins installed"
+
 .PHONY: check-scripts
 check-scripts: ## Check if validation scripts are installed
 	@echo "Checking for validation scripts..."
@@ -70,4 +99,9 @@ check-scripts: ## Check if validation scripts are installed
 clean: ## Clean temporary files (currently none)
 	@echo "Nothing to clean"
 
-.DEFAULT_GOAL := all
+.PHONY: lint
+lint: ## Run checkmake on this Makefile
+	@echo "Running checkmake on Makefile..."
+	@checkmake Makefile
+
+.DEFAULT_GOAL := help

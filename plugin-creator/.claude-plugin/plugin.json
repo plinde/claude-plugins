@@ -1,6 +1,6 @@
 {
   "name": "plugin-creator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tools for creating and validating Claude Code plugins and marketplaces with schema compliance checking",
   "author": {
     "name": "Peter Linde",
