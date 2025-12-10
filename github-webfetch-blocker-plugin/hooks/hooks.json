@@ -1,0 +1,17 @@
+{
+  "description": "Blocks WebFetch on GitHub URLs to prevent 404 errors on private repositories",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/block-github-webfetch.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
