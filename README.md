@@ -10,7 +10,7 @@ Prevents WebFetch attempts on GitHub URLs and redirects to authenticated gh CLI 
 
 **Purpose:** Blocks WebFetch calls to github.com to prevent 404 errors on private repositories, providing guidance to use gh CLI with proper authentication.
 
-**[Full Documentation →](github-webfetch-blocker-plugin/README.md)**
+**[Full Documentation →](github-webfetch-blocker/README.md)**
 
 ## Installation
 
@@ -112,7 +112,7 @@ claude-plugins/
 ├── .claude-plugin/
 │   └── marketplace.json                # Marketplace definition
 ├── README.md                           # This file
-└── github-webfetch-blocker-plugin/
+└── github-webfetch-blocker/
     ├── .claude-plugin/
     │   └── plugin.json                 # Plugin metadata
     ├── README.md                       # Plugin documentation

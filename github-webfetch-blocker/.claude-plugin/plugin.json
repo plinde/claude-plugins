@@ -1,12 +1,12 @@
 {
   "name": "github-webfetch-blocker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Blocks WebFetch attempts on GitHub URLs and redirects to gh CLI for authenticated access",
   "author": {
     "name": "Peter Linde",
     "email": "plinde@users.noreply.github.com"
   },
-  "homepage": "https://github.com/plinde/claude-plugins/tree/main/github-webfetch-blocker-plugin",
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/github-webfetch-blocker",
   "repository": "https://github.com/plinde/claude-plugins",
   "license": "MIT",
   "keywords": ["github", "security", "hooks", "gh-cli"]
