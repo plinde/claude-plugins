@@ -42,6 +42,22 @@
       "keywords": ["plugin", "validation", "development", "schema", "marketplace"],
       "category": "development",
       "tags": ["validation", "development", "tools"]
+    },
+    {
+      "name": "kyverno-version-lookup",
+      "source": "https://github.com/plinde/claude-plugins",
+      "description": "Query Kyverno Helm chart versions, release dates, and app version mappings from Artifact Hub",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Linde",
+        "email": "plinde@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/plinde/claude-plugins/tree/main/kyverno-version-lookup",
+      "repository": "https://github.com/plinde/claude-plugins",
+      "license": "MIT",
+      "keywords": ["kyverno", "helm", "kubernetes", "versions", "artifact-hub"],
+      "category": "infrastructure",
+      "tags": ["kyverno", "helm", "kubernetes", "versions"]
     }
   ]
 }
