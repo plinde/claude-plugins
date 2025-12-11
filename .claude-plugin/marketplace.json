@@ -58,6 +58,22 @@
       "keywords": ["kyverno", "helm", "kubernetes", "versions", "artifact-hub"],
       "category": "infrastructure",
       "tags": ["kyverno", "helm", "kubernetes", "versions"]
+    },
+    {
+      "name": "check-skill-conflicts",
+      "source": "https://github.com/plinde/claude-plugins",
+      "description": "Detect naming conflicts between local skills and plugin-provided skills to prevent inconsistent agent behavior",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Linde",
+        "email": "plinde@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/plinde/claude-plugins/tree/main/check-skill-conflicts",
+      "repository": "https://github.com/plinde/claude-plugins",
+      "license": "MIT",
+      "keywords": ["skills", "plugins", "conflicts", "validation", "development"],
+      "category": "development",
+      "tags": ["validation", "development", "tools"]
     }
   ]
 }

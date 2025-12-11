@@ -1,0 +1,13 @@
+{
+  "name": "check-skill-conflicts",
+  "version": "1.0.0",
+  "description": "Detect naming conflicts between local skills and plugin-provided skills to prevent inconsistent agent behavior",
+  "author": {
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/check-skill-conflicts",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["skills", "plugins", "conflicts", "validation", "development"]
+}
