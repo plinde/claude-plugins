@@ -59,8 +59,6 @@ get_local_skills() {
             skill_dir=$(dirname "$skill_file")
             local skill_name
             skill_name=$(basename "$skill_dir")
-            # Skip check-skill-conflicts itself
-            [[ "$skill_name" == "check-skill-conflicts" ]] && continue
             skills+=("$skill_name|$skill_dir")
         done < <(find "$SKILLS_DIR" -maxdepth 2 -name "SKILL.md" 2>/dev/null)
     fi
