@@ -36,6 +36,14 @@ Detect naming conflicts between local skills and plugin-provided skills.
 
 **[Full Documentation →](check-skill-conflicts/README.md)**
 
+### 🔒 trivy
+
+Scan container images, filesystems, and repositories for vulnerabilities using Trivy.
+
+**Purpose:** CVE detection, security analysis, vulnerability comparison across image versions, and batch scanning multiple images. Includes helper scripts for version comparison and parallel scanning.
+
+**[Full Documentation →](trivy/skills/trivy/SKILL.md)**
+
 ## Installation
 
 ### Quick Start
@@ -159,14 +167,24 @@ claude-plugins/
 │   ├── README.md
 │   └── skills/kyverno-version-lookup/
 │       └── SKILL.md
-└── check-skill-conflicts/
+├── check-skill-conflicts/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/check-skill-conflicts/
+│       ├── SKILL.md
+│       └── scripts/
+│           └── check-conflicts.sh
+└── trivy/
     ├── .claude-plugin/
     │   └── plugin.json
-    ├── README.md
-    └── skills/check-skill-conflicts/
+    └── skills/trivy/
         ├── SKILL.md
-        └── scripts/
-            └── check-conflicts.sh
+        ├── scripts/
+        │   ├── batch_scan.sh
+        │   └── compare_versions.sh
+        └── references/
+            └── output_interpretation.md
 ```
 
 ## Development
@@ -261,6 +279,7 @@ Each plugin may have its own license. See individual plugin directories for deta
 - plugin-creator: MIT License
 - kyverno-version-lookup: MIT License
 - check-skill-conflicts: MIT License
+- trivy: MIT License
 
 ## Author
 

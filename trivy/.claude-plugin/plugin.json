@@ -1,0 +1,13 @@
+{
+  "name": "trivy",
+  "version": "1.0.0",
+  "description": "Scan container images, filesystems, and repositories for vulnerabilities using Trivy. Use for CVE detection, security analysis, vulnerability comparison across image versions, and batch scanning.",
+  "author": {
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/trivy",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["trivy", "security", "vulnerabilities", "cve", "container", "scanning"]
+}
