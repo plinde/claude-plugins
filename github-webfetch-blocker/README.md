@@ -1,24 +1,26 @@
 # GitHub WebFetch Blocker Plugin
 
-A Claude Code plugin that prevents WebFetch attempts on GitHub URLs and redirects to the authenticated gh CLI instead.
+A Claude Code plugin that prevents WebFetch attempts on GitHub URLs and guides `gh api` usage toward proper CLI subcommands.
 
 ## Problem
 
-When Claude Code tries to fetch GitHub URLs using the WebFetch tool, it fails with 404 errors for private repositories because:
-- GitHub requires authentication for private repos
-- WebFetch doesn't have access to GitHub credentials
-- This results in failed attempts and wasted time
+When Claude Code interacts with GitHub:
+1. **WebFetch fails on private repos** - GitHub requires authentication, and WebFetch doesn't have access to credentials
+2. **`gh api` bypasses better tools** - Using `gh api repos/owner/repo/pulls/123` when `gh pr view 123` exists wastes the rich subcommand features
 
 ## Solution
 
-This plugin intercepts WebFetch calls to GitHub URLs and blocks them before execution, providing helpful guidance to use the gh CLI instead.
+This plugin intercepts both:
+- **WebFetch calls** to GitHub URLs → blocks with `gh` CLI alternatives
+- **`gh api repos/...`** calls → suggests proper `gh` subcommands (pr, issue, release, etc.)
 
 ## Features
 
 - 🚫 **Blocks WebFetch on GitHub URLs** - Prevents 404 errors on private repos
-- ✅ **Smart command suggestions** - Parses URLs and suggests specific gh CLI commands
+- 🔄 **Guides gh api → subcommands** - Redirects `gh api repos/...` to proper `gh pr`, `gh issue`, etc.
+- ✅ **Smart command suggestions** - Parses URLs/paths and suggests specific gh CLI commands
 - 🔒 **Uses authenticated access** - Leverages your existing gh CLI authentication
-- 🎯 **Context-aware help** - Different suggestions for PRs, issues, and repos
+- 🎯 **Context-aware help** - Different suggestions for PRs, issues, releases, contents, and repos
 
 ## Installation
 
@@ -61,9 +63,11 @@ For local development or testing:
 
 ## Usage
 
-Once installed and enabled, the plugin automatically intercepts WebFetch calls to GitHub URLs.
+Once installed and enabled, the plugin automatically intercepts:
+1. WebFetch calls to GitHub URLs
+2. `gh api repos/...` calls that have better subcommand alternatives
 
-### Example
+### Example: WebFetch Blocking
 
 **Before (fails with 404):**
 ```
@@ -84,24 +88,59 @@ Once installed and enabled, the plugin automatically intercepts WebFetch calls t
      gh pr view 123 --repo mycompany/myrepo --json title,body,state,author
      gh pr diff 123 --repo mycompany/myrepo
      gh pr view 123 --repo mycompany/myrepo --comments
-     gh api repos/mycompany/myrepo/pulls/123
-
-  Examples:
-     # Get JSON output for parsing
-     gh pr view 123 --repo owner/repo --json title,body,state,author,comments
-
-     # Get diff for code review
-     gh pr diff 123 --repo owner/repo
-
-     # Direct API access for advanced queries
-     gh api repos/owner/repo/pulls/123
-     gh api repos/owner/repo/pulls/123/files
-     gh api repos/owner/repo/pulls/123/comments
 ```
+
+### Example: gh api → Subcommand Guidance
+
+**Before (works but misses better tooling):**
+```
+⏺ Bash(gh api repos/mycompany/myrepo/pulls/123)
+```
+
+**After (guided to proper subcommand):**
+```
+⏺ Bash(gh api repos/mycompany/myrepo/pulls/123)
+  ⎿  ⚠️  GUIDANCE: Prefer gh CLI subcommands over gh api
+
+  Detected: gh api repos/mycompany/myrepo/pulls/123
+
+  ✅ Use gh pr subcommand instead:
+
+     # View PR details
+     gh pr view 123 --repo mycompany/myrepo
+
+     # Get structured JSON output
+     gh pr view 123 --repo mycompany/myrepo --json title,body,state,author,comments
+
+     # View PR diff
+     gh pr diff 123 --repo mycompany/myrepo
+
+  Why prefer subcommands?
+     • Better error handling and user-friendly output
+     • Automatic pagination where applicable
+     • Structured --json output with --jq filtering
+```
+
+### Supported gh api Redirects
+
+| gh api endpoint | Suggested subcommand |
+|-----------------|---------------------|
+| `repos/O/R/pulls/N` | `gh pr view N --repo O/R` |
+| `repos/O/R/pulls` | `gh pr list --repo O/R` |
+| `repos/O/R/issues/N` | `gh issue view N --repo O/R` |
+| `repos/O/R/issues` | `gh issue list --repo O/R` |
+| `repos/O/R/releases` | `gh release list --repo O/R` |
+| `repos/O/R/releases/latest` | `gh release view --repo O/R` |
+| `repos/O/R/contents/...` | Clone repo + Read tool |
+| `repos/O/R/actions/runs` | `gh run list --repo O/R` |
+| `repos/O/R/actions/workflows` | `gh workflow list --repo O/R` |
+| `repos/O/R` | `gh repo view O/R` |
 
 ## How It Works
 
-The plugin registers a PreToolUse hook that:
+The plugin registers two PreToolUse hooks:
+
+### WebFetch Hook
 1. Intercepts WebFetch tool calls before execution
 2. Checks if the URL contains `github.com`
 3. If yes:
@@ -110,6 +149,16 @@ The plugin registers a PreToolUse hook that:
    - Generates specific `gh` CLI commands tailored to that URL
    - Blocks with exit code 1 and shows context-aware suggestions
 4. If no: allows WebFetch to proceed normally
+
+### Bash Hook (gh api guidance)
+1. Intercepts Bash tool calls before execution
+2. Checks if the command contains `gh api repos/...`
+3. If yes:
+   - Parses the API path to identify the resource type
+   - Checks if a proper `gh` subcommand exists for that endpoint
+   - If better alternative exists: blocks with suggested subcommand
+   - If no better alternative: allows `gh api` to proceed
+4. If no: allows Bash command to proceed normally
 
 ## Requirements
 
@@ -156,15 +205,16 @@ gh auth login
 ## Plugin Structure
 
 ```
-github-webfetch-blocker-plugin/
+github-webfetch-blocker/
 ├── .claude-plugin/
-│   └── plugin.json                     # Plugin metadata
-├── README.md                           # This file
-├── LICENSE                             # MIT License
+│   └── plugin.json                      # Plugin metadata
+├── README.md                            # This file
+├── LICENSE                              # MIT License
 ├── hooks/
-│   └── hooks.json                      # Hook configuration
+│   └── hooks.json                       # Hook configuration
 └── scripts/
-    └── block-github-webfetch.sh       # Hook script
+    ├── block-github-webfetch.sh         # WebFetch blocker hook
+    └── suggest-gh-subcommands.sh        # gh api → subcommand guidance
 ```
 
 ## Contributing

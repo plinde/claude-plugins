@@ -1,5 +1,5 @@
 {
-  "description": "Blocks WebFetch on GitHub URLs to prevent 404 errors on private repositories",
+  "description": "Blocks WebFetch on GitHub URLs and guides gh api usage toward proper CLI subcommands",
   "hooks": {
     "PreToolUse": [
       {
@@ -8,6 +8,16 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/scripts/block-github-webfetch.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/suggest-gh-subcommands.sh",
             "timeout": 5
           }
         ]
