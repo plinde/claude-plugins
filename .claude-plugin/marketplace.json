@@ -13,7 +13,7 @@
   "plugins": [
     {
       "name": "github-webfetch-blocker",
-      "source": "https://github.com/plinde/claude-plugins",
+      "source": "./github-webfetch-blocker",
       "description": "Blocks WebFetch attempts on GitHub URLs and redirects to gh CLI for authenticated access",
       "version": "1.0.1",
       "author": {
@@ -29,7 +29,7 @@
     },
     {
       "name": "plugin-creator",
-      "source": "https://github.com/plinde/claude-plugins",
+      "source": "./plugin-creator",
       "description": "Tools for creating and validating Claude Code plugins and marketplaces with schema compliance checking",
       "version": "1.0.1",
       "author": {
@@ -45,7 +45,7 @@
     },
     {
       "name": "kyverno-version-lookup",
-      "source": "https://github.com/plinde/claude-plugins",
+      "source": "./kyverno-version-lookup",
       "description": "Query Kyverno Helm chart versions, release dates, and app version mappings from Artifact Hub",
       "version": "1.0.0",
       "author": {
@@ -61,7 +61,7 @@
     },
     {
       "name": "check-skill-conflicts",
-      "source": "https://github.com/plinde/claude-plugins",
+      "source": "./check-skill-conflicts",
       "description": "Detect naming conflicts between local skills and plugin-provided skills to prevent inconsistent agent behavior",
       "version": "1.0.0",
       "author": {
