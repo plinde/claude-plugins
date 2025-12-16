@@ -6,9 +6,9 @@ A plugin marketplace for Claude Code with plugins for workflow automation and en
 
 ### 🚫 github-webfetch-blocker
 
-Prevents WebFetch attempts on GitHub URLs and redirects to authenticated gh CLI instead.
+Prevents WebFetch attempts on GitHub URLs and guides `gh api` usage toward proper CLI subcommands.
 
-**Purpose:** Blocks WebFetch calls to github.com to prevent 404 errors on private repositories, providing guidance to use gh CLI with proper authentication.
+**Purpose:** Blocks WebFetch calls to github.com (which fail on private repos) and intercepts `gh api repos/...` calls to suggest better alternatives like `gh pr view`, `gh issue list`, etc.
 
 **[Full Documentation →](github-webfetch-blocker/README.md)**
 
@@ -20,6 +20,22 @@ Tools for creating and validating Claude Code plugins and marketplaces.
 
 **[Full Documentation →](plugin-creator/README.md)**
 
+### 🔍 kyverno-version-lookup
+
+Query Kyverno Helm chart versions and release information from Artifact Hub.
+
+**Purpose:** Look up Kyverno Helm chart versions, release dates, and app version mappings without leaving Claude Code. Useful for Kubernetes policy management and version planning.
+
+**[Full Documentation →](kyverno-version-lookup/README.md)**
+
+### ⚠️ check-skill-conflicts
+
+Detect naming conflicts between local skills and plugin-provided skills.
+
+**Purpose:** Scans `~/.claude/skills/` and `~/.claude/plugins/` to identify duplicate skill names that could cause inconsistent agent behavior. Helps maintain a clean skills configuration.
+
+**[Full Documentation →](check-skill-conflicts/README.md)**
+
 ## Installation
 
 ### Quick Start
@@ -27,17 +43,17 @@ Tools for creating and validating Claude Code plugins and marketplaces.
 Add this marketplace to Claude Code:
 
 ```bash
-/plugin marketplace add plinde/claude-plugins
+claude plugin marketplace add plinde/claude-plugins
 ```
 
 Then install plugins:
 
 ```bash
 # Browse available plugins
-/plugin
+claude plugin
 
 # Install github-webfetch-blocker
-/plugin install github-webfetch-blocker@plinde-plugins
+claude plugin install github-webfetch-blocker@plinde-plugins
 ```
 
 ### Prerequisites
@@ -48,45 +64,45 @@ Then install plugins:
 
 1. **Add the marketplace** (one-time setup):
    ```bash
-   /plugin marketplace add plinde/claude-plugins
+   claude plugin marketplace add plinde/claude-plugins
    ```
 
 2. **Browse available plugins**:
    ```bash
-   /plugin
+   claude plugin
    ```
    This opens an interactive browser to explore plugins.
 
 3. **Install a plugin**:
    ```bash
-   /plugin install github-webfetch-blocker@plinde-plugins
+   claude plugin install github-webfetch-blocker@plinde-plugins
    ```
 
 4. **The plugin is automatically enabled**. To verify:
    ```bash
-   /plugin list
+   claude plugin list
    ```
 
 ### Managing Plugins
 
 ```bash
 # List installed plugins
-/plugin list
+claude plugin list
 
 # Disable a plugin (keeps it installed)
-/plugin disable github-webfetch-blocker@plinde-plugins
+claude plugin disable github-webfetch-blocker@plinde-plugins
 
 # Enable a disabled plugin
-/plugin enable github-webfetch-blocker@plinde-plugins
+claude plugin enable github-webfetch-blocker@plinde-plugins
 
 # Uninstall a plugin
-/plugin uninstall github-webfetch-blocker@plinde-plugins
+claude plugin uninstall github-webfetch-blocker@plinde-plugins
 
 # Update marketplace catalog
-/plugin marketplace update plinde-plugins
+claude plugin marketplace update plinde-plugins
 
 # Remove marketplace
-/plugin marketplace remove plinde-plugins
+claude plugin marketplace remove plinde-plugins
 ```
 
 ### Team Distribution
@@ -118,17 +134,39 @@ When team members trust the repository, Claude Code will automatically:
 ```
 claude-plugins/
 ├── .claude-plugin/
-│   └── marketplace.json                # Marketplace definition
-├── README.md                           # This file
-└── github-webfetch-blocker/
+│   └── marketplace.json                 # Marketplace definition
+├── README.md                            # This file
+├── CLAUDE.md                            # Project instructions
+├── Makefile                             # Development helpers
+├── github-webfetch-blocker/
+│   ├── .claude-plugin/
+│   │   └── plugin.json                  # Plugin metadata
+│   ├── README.md
+│   ├── hooks/
+│   │   └── hooks.json
+│   └── scripts/
+│       ├── block-github-webfetch.sh     # WebFetch blocker
+│       └── suggest-gh-subcommands.sh    # gh api guidance
+├── plugin-creator/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/plugin-creator/
+│       └── SKILL.md
+├── kyverno-version-lookup/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/kyverno-version-lookup/
+│       └── SKILL.md
+└── check-skill-conflicts/
     ├── .claude-plugin/
-    │   └── plugin.json                 # Plugin metadata
-    ├── README.md                       # Plugin documentation
-    ├── LICENSE                         # MIT License
-    ├── hooks/
-    │   └── hooks.json                  # Hook configuration
-    └── scripts/
-        └── block-github-webfetch.sh   # Hook implementation
+    │   └── plugin.json
+    ├── README.md
+    └── skills/check-skill-conflicts/
+        ├── SKILL.md
+        └── scripts/
+            └── check-conflicts.sh
 ```
 
 ## Development
@@ -143,10 +181,10 @@ git clone https://github.com/plinde/claude-plugins.git
 cd claude-plugins
 
 # Add as local marketplace
-/plugin marketplace add .
+claude plugin marketplace add .
 
 # Install plugin locally
-/plugin install github-webfetch-blocker@plinde-plugins
+claude plugin install github-webfetch-blocker@plinde-plugins
 ```
 
 ### Creating New Plugins
@@ -202,8 +240,8 @@ echo $?
 Test via local marketplace:
 
 ```bash
-/plugin marketplace add .
-/plugin install plugin-name@plinde-plugins
+claude plugin marketplace add .
+claude plugin install plugin-name@plinde-plugins
 ```
 
 ## Contributing
@@ -220,6 +258,9 @@ Contributions welcome! Please:
 Each plugin may have its own license. See individual plugin directories for details.
 
 - github-webfetch-blocker: MIT License
+- plugin-creator: MIT License
+- kyverno-version-lookup: MIT License
+- check-skill-conflicts: MIT License
 
 ## Author
 
