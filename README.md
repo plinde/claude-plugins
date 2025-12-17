@@ -44,6 +44,14 @@ Scan container images, filesystems, and repositories for vulnerabilities using T
 
 **[Full Documentation →](trivy/skills/trivy/SKILL.md)**
 
+### 🔨 hammerspoon
+
+Automate macOS with Hammerspoon Lua scripting.
+
+**Purpose:** Window management, hotkeys, Spoons (plugins), and CLI integration via `hs` command. Includes configuration patterns for ShiftIt window tiling and IPC setup.
+
+**[Full Documentation →](hammerspoon/skills/hammerspoon/SKILL.md)**
+
 ## Installation
 
 ### Quick Start
@@ -175,16 +183,22 @@ claude-plugins/
 │       ├── SKILL.md
 │       └── scripts/
 │           └── check-conflicts.sh
-└── trivy/
+├── trivy/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   └── skills/trivy/
+│       ├── SKILL.md
+│       ├── scripts/
+│       │   ├── batch_scan.sh
+│       │   └── compare_versions.sh
+│       └── references/
+│           └── output_interpretation.md
+└── hammerspoon/
     ├── .claude-plugin/
     │   └── plugin.json
-    └── skills/trivy/
-        ├── SKILL.md
-        ├── scripts/
-        │   ├── batch_scan.sh
-        │   └── compare_versions.sh
-        └── references/
-            └── output_interpretation.md
+    ├── README.md
+    └── skills/hammerspoon/
+        └── SKILL.md
 ```
 
 ## Development
@@ -280,6 +294,7 @@ Each plugin may have its own license. See individual plugin directories for deta
 - kyverno-version-lookup: MIT License
 - check-skill-conflicts: MIT License
 - trivy: MIT License
+- hammerspoon: MIT License
 
 ## Author
 

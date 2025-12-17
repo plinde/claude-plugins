@@ -1,0 +1,13 @@
+{
+  "name": "hammerspoon",
+  "version": "1.0.0",
+  "description": "Automate macOS with Hammerspoon Lua scripting. Window management, hotkeys, Spoons, and CLI integration via hs command.",
+  "author": {
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/hammerspoon",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["hammerspoon", "macos", "automation", "lua", "window-management", "hotkeys"]
+}
