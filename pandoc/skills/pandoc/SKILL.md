@@ -38,15 +38,29 @@ pandoc input.md -s --metadata title="Document Title" -o output.docx
 ### Markdown to PDF
 
 ```bash
-# Requires LaTeX (brew install --cask mactex-no-gui)
+# Requires LaTeX - install one of:
+#   brew install --cask basictex      # Smaller (~100MB)
+#   brew install --cask mactex-no-gui # Full (~4GB)
+# After install: eval "$(/usr/libexec/path_helper)" or new terminal
+
+# Basic conversion (uses pdflatex)
 pandoc input.md -o output.pdf
 
-# With custom margins
-pandoc input.md -V geometry:margin=1in -o output.pdf
+# With table of contents and custom margins
+pandoc input.md -s --toc --toc-depth=2 -V geometry:margin=1in -o output.pdf
 
-# Using a different PDF engine
-pandoc input.md --pdf-engine=xelatex -o output.pdf
+# Using xelatex (better Unicode support - box drawings, arrows, etc.)
+export PATH="/Library/TeX/texbin:$PATH"
+pandoc input.md --pdf-engine=xelatex -V geometry:margin=1in -o output.pdf
 ```
+
+**PDF Engine Selection:**
+
+| Engine | Use When |
+|--------|----------|
+| `pdflatex` | Default, ASCII content only |
+| `xelatex` | Unicode characters (arrows, box-drawing, emojis) |
+| `lualatex` | Complex typography, OpenType fonts |
 
 ### Markdown to HTML
 
@@ -57,8 +71,35 @@ pandoc input.md -o output.html
 # Standalone HTML with CSS
 pandoc input.md -s -c style.css -o output.html
 
-# Self-contained (embeds images/CSS)
-pandoc input.md -s --self-contained -o output.html
+# Self-contained (embeds images/CSS) - note: --self-contained is deprecated
+pandoc input.md -s --embed-resources --standalone -o output.html
+```
+
+### HTML for Print-to-PDF (No LaTeX Required)
+
+When LaTeX isn't available, create styled HTML and print to PDF from browser:
+
+```bash
+# Create inline CSS file
+cat > /tmp/print-style.css << 'EOF'
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       max-width: 800px; margin: 0 auto; padding: 2em; line-height: 1.6; }
+h1 { border-bottom: 2px solid #333; padding-bottom: 0.3em; }
+h2 { border-bottom: 1px solid #ccc; padding-bottom: 0.2em; margin-top: 1.5em; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background-color: #f5f5f5; }
+code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+pre { background-color: #f4f4f4; padding: 1em; overflow-x: auto; border-radius: 5px; }
+blockquote { border-left: 4px solid #ddd; margin: 1em 0; padding-left: 1em; color: #666; }
+@media print { body { max-width: none; } }
+EOF
+
+# Convert with embedded styles
+pandoc input.md -s --toc --toc-depth=2 -c /tmp/print-style.css --embed-resources --standalone -o output.html
+
+# Open and print to PDF (Cmd+P > Save as PDF)
+open output.html
 ```
 
 ### Word to Markdown
@@ -160,15 +201,31 @@ def example():
 
 ### PDF Generation Fails
 
-PDF requires LaTeX. Install with:
+**"pdflatex not found"** - Install LaTeX:
 ```bash
+# Smaller option (~100MB)
+brew install --cask basictex
+
+# Full option (~4GB)
 brew install --cask mactex-no-gui
+
+# After install, update PATH
+eval "$(/usr/libexec/path_helper)"
+# Or open a new terminal
 ```
 
-Or use HTML as intermediate:
+**Unicode character errors (box-drawing, arrows, emojis):**
 ```bash
-pandoc input.md -o output.html
-# Then print to PDF from browser
+# Use xelatex instead of pdflatex
+export PATH="/Library/TeX/texbin:$PATH"
+pandoc input.md --pdf-engine=xelatex -o output.pdf
+```
+
+**No LaTeX available** - Use HTML print-to-PDF workflow:
+```bash
+pandoc input.md -s --toc -o output.html
+open output.html
+# Then Cmd+P > Save as PDF
 ```
 
 ## Self-Test
