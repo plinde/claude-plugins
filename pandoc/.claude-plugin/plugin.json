@@ -1,0 +1,13 @@
+{
+  "name": "pandoc",
+  "version": "1.0.0",
+  "description": "Convert documents between formats (Markdown, DOCX, PDF, HTML, LaTeX) using pandoc. Use for format conversion, document generation, and preparing markdown for Google Docs.",
+  "author": {
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/pandoc",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["pandoc", "markdown", "docx", "pdf", "document", "conversion", "google-docs"]
+}
