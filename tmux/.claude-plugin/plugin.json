@@ -1,0 +1,13 @@
+{
+  "name": "tmux",
+  "version": "1.0.0",
+  "description": "Work with tmux terminal multiplexer for session management, window navigation, pane control, and custom workflows like multi-file review.",
+  "author": {
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/tmux",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["tmux", "terminal", "multiplexer", "session", "workflow"]
+}

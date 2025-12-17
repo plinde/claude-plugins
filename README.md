@@ -52,6 +52,14 @@ Automate macOS with Hammerspoon Lua scripting.
 
 **[Full Documentation →](hammerspoon/skills/hammerspoon/SKILL.md)**
 
+### 🖥️ tmux
+
+Work with tmux terminal multiplexer.
+
+**Purpose:** Session management, window navigation, pane control, custom keybindings, and workflow automation like multi-file review. Includes configuration patterns for `~/.tmux.conf`.
+
+**[Full Documentation →](tmux/skills/tmux/SKILL.md)**
+
 ## Installation
 
 ### Quick Start
@@ -193,11 +201,17 @@ claude-plugins/
 │       │   └── compare_versions.sh
 │       └── references/
 │           └── output_interpretation.md
-└── hammerspoon/
+├── hammerspoon/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/hammerspoon/
+│       └── SKILL.md
+└── tmux/
     ├── .claude-plugin/
     │   └── plugin.json
     ├── README.md
-    └── skills/hammerspoon/
+    └── skills/tmux/
         └── SKILL.md
 ```
 
@@ -295,6 +309,7 @@ Each plugin may have its own license. See individual plugin directories for deta
 - check-skill-conflicts: MIT License
 - trivy: MIT License
 - hammerspoon: MIT License
+- tmux: MIT License
 
 ## Author
 
