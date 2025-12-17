@@ -6,51 +6,67 @@ A plugin marketplace for Claude Code with plugins for workflow automation and en
 
 ### ⚠️ check-skill-conflicts
 
-Detect naming conflicts between local skills and plugin-provided skills to prevent inconsistent agent behavior
+Detect naming conflicts between local skills and plugin-provided skills.
+
+**Purpose:** Scans `~/.claude/skills/` and `~/.claude/plugins/` to identify duplicate skill names that could cause inconsistent agent behavior. Helps maintain a clean skills configuration.
 
 **[Full Documentation →](check-skill-conflicts/README.md)**
 
 ### 🚫 github-webfetch-blocker
 
-Blocks WebFetch attempts on GitHub URLs and redirects to gh CLI for authenticated access
+Blocks WebFetch attempts on GitHub URLs and redirects to gh CLI.
+
+**Purpose:** Prevents WebFetch calls to github.com (which fail on private repos) and intercepts `gh api repos/...` calls to suggest better alternatives like `gh pr view`, `gh issue list`, etc.
 
 **[Full Documentation →](github-webfetch-blocker/README.md)**
 
 ### 🔨 hammerspoon
 
-Automate macOS with Hammerspoon Lua scripting. Window management, hotkeys, Spoons, and CLI integration via hs command.
+Automate macOS with Hammerspoon Lua scripting.
+
+**Purpose:** Window management, hotkeys, Spoons (plugins), and CLI integration via `hs` command. Includes configuration patterns for ShiftIt window tiling and IPC setup.
 
 **[Full Documentation →](hammerspoon/README.md)**
 
 ### 🔍 kyverno-version-lookup
 
-Query Kyverno Helm chart versions, release dates, and app version mappings from Artifact Hub
+Query Kyverno Helm chart versions and release information from Artifact Hub.
+
+**Purpose:** Look up Kyverno Helm chart versions, release dates, and app version mappings without leaving Claude Code. Useful for Kubernetes policy management and version planning.
 
 **[Full Documentation →](kyverno-version-lookup/README.md)**
 
 ### 📄 pandoc
 
-Convert documents between formats (Markdown, DOCX, PDF, HTML, LaTeX) using pandoc. Use for format conversion, document generation, and preparing markdown for Google Docs.
+Convert documents between formats using pandoc.
+
+**Purpose:** Format conversion between Markdown, DOCX, PDF, HTML, and LaTeX. Includes document generation workflows and preparing markdown for Google Docs compatibility.
 
 **[Full Documentation →](pandoc/README.md)**
 
 ### 🛠️ plugin-creator
 
-Tools for creating and validating Claude Code plugins and marketplaces with schema compliance checking
+Tools for creating and validating Claude Code plugins and marketplaces.
+
+**Purpose:** Provides validation scripts, templates, and tools for building Claude Code plugins with schema compliance checking. Includes validators for plugin.json and marketplace.json manifests.
 
 **[Full Documentation →](plugin-creator/README.md)**
 
 ### 🖥️ tmux
 
-Work with tmux terminal multiplexer for session management, window navigation, pane control, and custom workflows like multi-file review.
+Work with tmux terminal multiplexer.
+
+**Purpose:** Session management, window navigation, pane control, custom keybindings, and workflow automation like multi-file review. Includes configuration patterns for `~/.tmux.conf`.
 
 **[Full Documentation →](tmux/README.md)**
 
 ### 🔒 trivy
 
-Scan container images, filesystems, and repositories for vulnerabilities using Trivy. Use for CVE detection, security analysis, vulnerability comparison across image versions, and batch scanning.
+Scan container images, filesystems, and repositories for vulnerabilities using Trivy.
 
-**[Full Documentation →](trivy/skills/trivy/SKILL.md)**
+**Purpose:** CVE detection, security analysis, vulnerability comparison across image versions, and batch scanning multiple images. Includes helper scripts for version comparison and parallel scanning.
+
+**[Full Documentation →](trivy/README.md)**
 
 ## Installation
 
@@ -105,47 +121,48 @@ claude-plugins/
 ├── CLAUDE.md
 ├── Makefile
 ├── check-skill-conflicts/
-��── .claude-plugin/
-��   └── plugin.json
-��── README.md
-��── skills/check-skill-conflicts/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/check-skill-conflicts/
 │       └── SKILL.md
 ├── github-webfetch-blocker/
-��── .claude-plugin/
-��   └── plugin.json
-��── README.md
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   └── README.md
 ├── hammerspoon/
-��── .claude-plugin/
-��   └── plugin.json
-��── README.md
-��── skills/hammerspoon/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/hammerspoon/
 │       └── SKILL.md
 ├── kyverno-version-lookup/
-��── .claude-plugin/
-��   └── plugin.json
-��── README.md
-��── skills/kyverno-version-lookup/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/kyverno-version-lookup/
 │       └── SKILL.md
 ├── pandoc/
-��── .claude-plugin/
-��   └── plugin.json
-��── README.md
-��── skills/pandoc/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/pandoc/
 │       └── SKILL.md
 ├── plugin-creator/
-��── .claude-plugin/
-��   └── plugin.json
-��── README.md
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   └── README.md
 ├── tmux/
-��── .claude-plugin/
-��   └── plugin.json
-��── README.md
-��── skills/tmux/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/tmux/
 │       └── SKILL.md
 └── trivy/
-��── .claude-plugin/
-��   └── plugin.json
-��── skills/trivy/
+    ├── .claude-plugin/
+    │   └── plugin.json
+    ├── README.md
+    └── skills/trivy/
         └── SKILL.md
 ```
 
