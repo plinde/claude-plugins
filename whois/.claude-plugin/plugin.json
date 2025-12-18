@@ -1,0 +1,13 @@
+{
+  "name": "whois",
+  "version": "1.0.0",
+  "description": "Perform WHOIS domain lookups to retrieve registration data, nameservers, expiration dates, and registrar information.",
+  "author": {
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/whois",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["whois", "domain", "dns", "registration", "lookup", "networking"]
+}

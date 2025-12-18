@@ -68,6 +68,14 @@ Scan container images, filesystems, and repositories for vulnerabilities using T
 
 **[Full Documentation →](trivy/README.md)**
 
+### 🌐 whois
+
+Perform WHOIS domain lookups for registration data.
+
+**Purpose:** Query domain registration data, nameservers, expiration dates, registrar information, and IP/ASN ownership. Useful for domain availability checks, ownership verification, and DNS investigation.
+
+**[Full Documentation →](whois/README.md)**
+
 ## Installation
 
 ### Quick Start
@@ -158,11 +166,17 @@ claude-plugins/
 │   ├── README.md
 │   └── skills/tmux/
 │       └── SKILL.md
-└── trivy/
+├── trivy/
+│   ├── .claude-plugin/
+│   │   └── plugin.json
+│   ├── README.md
+│   └── skills/trivy/
+│       └── SKILL.md
+└── whois/
     ├── .claude-plugin/
     │   └── plugin.json
     ├── README.md
-    └── skills/trivy/
+    └── skills/whois/
         └── SKILL.md
 ```
 
@@ -214,6 +228,7 @@ Each plugin may have its own license. See individual plugin directories for deta
 - plugin-creator: MIT License
 - tmux: MIT License
 - trivy: MIT License
+- whois: MIT License
 
 ## Author
 
