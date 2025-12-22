@@ -103,4 +103,5 @@ Brief description.
 ---
 
 *Presentation created: YYYY-MM-DD*
+*Built with [markdown-presentation](https://github.com/plinde/claude-plugins/tree/main/markdown-presentation)*
 ```

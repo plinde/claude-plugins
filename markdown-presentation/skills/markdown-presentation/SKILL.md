@@ -59,6 +59,7 @@ Content here...
 ---
 
 *Presentation created: YYYY-MM-DD*
+*Built with [markdown-presentation](https://github.com/plinde/claude-plugins/tree/main/markdown-presentation)*
 ```
 
 ## Key Formatting Patterns
@@ -440,6 +441,7 @@ make db-reset
 **Contact:** #service-x-support
 
 *Created: 2025-12-22*
+*Built with [markdown-presentation](https://github.com/plinde/claude-plugins/tree/main/markdown-presentation)*
 ```
 
 ## Self-Test
