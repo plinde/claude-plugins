@@ -122,6 +122,38 @@
       "keywords": ["tmux", "terminal", "multiplexer", "session", "workflow"],
       "category": "utilities",
       "tags": ["terminal", "multiplexer", "workflow"]
+    },
+    {
+      "name": "pandoc",
+      "source": "./pandoc",
+      "description": "Convert documents between formats using pandoc. Markdown to Word, PDF, HTML, and more. Includes Google Docs workflow.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Linde",
+        "email": "plinde@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/plinde/claude-plugins/tree/main/pandoc",
+      "repository": "https://github.com/plinde/claude-plugins",
+      "license": "MIT",
+      "keywords": ["pandoc", "document", "conversion", "markdown", "docx", "pdf"],
+      "category": "utilities",
+      "tags": ["document", "conversion", "markdown"]
+    },
+    {
+      "name": "markdown-presentation",
+      "source": "./markdown-presentation",
+      "description": "Create professional markdown and HTML presentations with timing guides, expandable sections, dark theme CSS templates, and HTML diagram patterns.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Linde",
+        "email": "plinde@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/plinde/claude-plugins/tree/main/markdown-presentation",
+      "repository": "https://github.com/plinde/claude-plugins",
+      "license": "MIT",
+      "keywords": ["presentation", "markdown", "html", "slides", "onboarding", "documentation"],
+      "category": "documentation",
+      "tags": ["presentation", "markdown", "html", "slides"]
     }
   ]
 }
