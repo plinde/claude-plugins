@@ -91,7 +91,7 @@ claude plugin install markdown-presentation@plinde-plugins
 ## Related Tools
 
 - [Marp](https://marp.app/) - Convert markdown to slides
-- [Obsidian](https://obsidian.md/) - Markdown-based note-taking with presentation plugins
+- [Pandoc](https://pandoc.org/) - Universal document converter
 
 ## License
 
