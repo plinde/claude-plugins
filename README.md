@@ -36,6 +36,14 @@ Query Kyverno Helm chart versions and release information from Artifact Hub.
 
 **[Full Documentation →](kyverno-version-lookup/README.md)**
 
+### 📊 markdown-presentation
+
+Create professional markdown and HTML presentations with timing guides.
+
+**Purpose:** Build presenter-friendly presentations with expandable sections, dark theme CSS templates (Tokyo Night), HTML diagrams replacing ASCII, and timing annotations. Perfect for team onboarding, architecture overviews, and knowledge transfer.
+
+**[Full Documentation →](markdown-presentation/README.md)**
+
 ### 📄 pandoc
 
 Convert documents between formats using pandoc.
@@ -142,6 +150,12 @@ claude-plugins/
 │   ├── README.md
 │   └── skills/kyverno-version-lookup/
 │       └── SKILL.md
+├── markdown-presentation/
+│   ├── README.md
+│   └── skills/markdown-presentation/
+│       ├── SKILL.md
+│       └── examples/
+│           └── technical-onboarding-example.md
 ├── pandoc/
 │   ├── .claude-plugin/
 │   │   └── plugin.json
@@ -210,6 +224,7 @@ Each plugin may have its own license. See individual plugin directories for deta
 - github-webfetch-blocker: MIT License
 - hammerspoon: MIT License
 - kyverno-version-lookup: MIT License
+- markdown-presentation: MIT License
 - pandoc: MIT License
 - plugin-creator: MIT License
 - tmux: MIT License
