@@ -57,7 +57,7 @@ Hidden details here...
 ## Questions?
 
 *Created: 2025-12-22*
-*Built with [markdown-presentation](https://github.com/plinde/claude-plugins/tree/main/markdown-presentation)*
+*Built with [markdown-presentation@plinde/claude-plugins](https://github.com/plinde/claude-plugins/tree/main/markdown-presentation)*
 ```
 
 ### HTML (for browser viewing)
