@@ -452,7 +452,7 @@ ls -la ~/.claude/plugins/marketplaces/plinde-plugins/markdown-presentation/skill
 ls -la ~/.claude/skills/markdown-presentation/SKILL.md
 ```
 
-## Related Skills
+## Related Tools
 
-- `braindump` - For session documentation
-- `psi` - For Problem-Solution-Implementation documents
+- [Marp](https://marp.app/) - Convert markdown to presentation slides
+- [Pandoc](https://pandoc.org/) - Universal document converter (md → docx, pdf, html)
