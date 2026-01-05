@@ -154,6 +154,22 @@
       "keywords": ["presentation", "markdown", "html", "slides", "onboarding", "documentation"],
       "category": "documentation",
       "tags": ["presentation", "markdown", "html", "slides"]
+    },
+    {
+      "name": "makefile-best-practices",
+      "source": "./makefile-best-practices",
+      "description": "Best practices for creating self-documenting Makefiles with auto-generated help",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Linde",
+        "email": "plinde@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/plinde/claude-plugins/tree/main/makefile-best-practices",
+      "repository": "https://github.com/plinde/claude-plugins",
+      "license": "MIT",
+      "keywords": ["makefile", "make", "build", "best-practices", "documentation"],
+      "category": "development",
+      "tags": ["makefile", "build", "documentation"]
     }
   ]
 }

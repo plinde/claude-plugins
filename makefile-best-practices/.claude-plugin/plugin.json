@@ -1,8 +1,13 @@
 {
   "name": "makefile-best-practices",
+  "version": "1.0.0",
   "description": "Best practices for creating self-documenting Makefiles with auto-generated help",
   "author": {
-    "name": "plinde",
-    "email": "plinde@github.com"
-  }
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/makefile-best-practices",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["makefile", "make", "build", "best-practices", "documentation"]
 }
