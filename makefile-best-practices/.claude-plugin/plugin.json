@@ -1,0 +1,8 @@
+{
+  "name": "makefile-best-practices",
+  "description": "Best practices for creating self-documenting Makefiles with auto-generated help",
+  "author": {
+    "name": "plinde",
+    "email": "plinde@github.com"
+  }
+}
