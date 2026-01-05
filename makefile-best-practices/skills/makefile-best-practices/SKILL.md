@@ -40,3 +40,33 @@ help: ## Show this help
 - Adding new targets automatically updates help
 - No manual maintenance of help text
 - Consistent format across all Makefiles
+
+## Audit Mode
+
+When asked to audit a Makefile, check for the following issues and report findings:
+
+### Required
+- [ ] `.DEFAULT_GOAL := help` is set
+- [ ] `help` target exists
+- [ ] `help` target uses the self-documenting awk pattern
+- [ ] All targets have `## Description` comments
+
+### Warnings
+- [ ] Targets without descriptions (missing `##`)
+- [ ] Missing `.PHONY` declarations for non-file targets
+- [ ] `help` target is not using `$(MAKEFILE_LIST)` (won't work with includes)
+
+### Report Format
+
+```
+Makefile Audit: <path>
+
+PASS: .DEFAULT_GOAL set to help
+PASS: help target exists
+FAIL: 3 targets missing ## descriptions: build, test, deploy
+WARN: Missing .PHONY for: build, test, clean
+
+Summary: 2 passed, 1 failed, 1 warning
+```
+
+Provide specific line numbers and suggested fixes for each issue found.
