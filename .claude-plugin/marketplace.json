@@ -170,6 +170,22 @@
       "keywords": ["makefile", "make", "build", "best-practices", "documentation"],
       "category": "development",
       "tags": ["makefile", "build", "documentation"]
+    },
+    {
+      "name": "socratic-debate",
+      "source": "./socratic-debate",
+      "description": "Conduct structured multi-perspective debates using 4 specialized subagents (FOR, AGAINST, NEUTRAL, Scribe/Moderator) to stress-test ideas and reach well-reasoned conclusions.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Peter Linde",
+        "email": "plinde@users.noreply.github.com"
+      },
+      "homepage": "https://github.com/plinde/claude-plugins/tree/main/socratic-debate",
+      "repository": "https://github.com/plinde/claude-plugins",
+      "license": "MIT",
+      "keywords": ["debate", "socratic", "decision-making", "analysis", "subagents", "multi-perspective"],
+      "category": "utilities",
+      "tags": ["decision-making", "analysis", "deliberation"]
     }
   ]
 }
