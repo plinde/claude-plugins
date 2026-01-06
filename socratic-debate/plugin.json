@@ -1,0 +1,13 @@
+{
+  "name": "socratic-debate",
+  "version": "1.0.0",
+  "description": "Conduct structured multi-perspective debates using 4 specialized subagents (FOR, AGAINST, NEUTRAL, and Scribe/Moderator) to stress-test ideas and reach well-reasoned conclusions.",
+  "author": {
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/socratic-debate",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["debate", "socratic", "decision-making", "analysis", "subagents", "multi-perspective", "deliberation"]
+}
