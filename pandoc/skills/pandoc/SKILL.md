@@ -64,25 +64,46 @@ pandoc input.md --pdf-engine=xelatex -V geometry:margin=1in -o output.pdf
 
 ### Markdown to HTML
 
-**Important:** Basic HTML without CSS may not render lists properly in browsers. Always use `-s` (standalone) with CSS for proper formatting.
+**Critical:** Always use `-f gfm` (GitHub Flavored Markdown) for proper line break and list handling. Standard markdown collapses consecutive lines into paragraphs.
 
 ```bash
-# Basic HTML (fragment only - no styling, lists may not render correctly)
-pandoc input.md -o output.html
-
-# Standalone HTML with external CSS
-pandoc input.md -s -c style.css -o output.html
-
-# Standalone with inline minimal CSS for proper list rendering
-pandoc input.md -s -H <(echo '<style>
+# RECOMMENDED: GitHub Flavored Markdown with full styling
+pandoc -f gfm -s -H <(cat << 'STYLE'
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:800px;margin:0 auto;padding:2em;line-height:1.6}
+h1{border-bottom:2px solid #333;padding-bottom:0.3em}
+h2{border-bottom:1px solid #ccc;padding-bottom:0.2em;margin-top:1.5em}
+h3{margin-top:1.2em}
 ul,ol{margin:0.5em 0 0.5em 1.5em;padding-left:1em}
 ul{list-style-type:disc}ol{list-style-type:decimal}
-li{margin:0.3em 0}ul ul,ol ul{list-style-type:circle}
-</style>') -o output.html
+li{margin:0.3em 0}ul ul,ol ul{list-style-type:circle;margin:0.2em 0 0.2em 1em}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #ddd;padding:8px;text-align:left}
+th{background-color:#f5f5f5}
+code{background-color:#f4f4f4;padding:2px 6px;border-radius:3px}
+pre{background-color:#f4f4f4;padding:1em;overflow-x:auto;border-radius:5px}
+blockquote{border-left:4px solid #ddd;margin:1em 0;padding-left:1em;color:#666}
+</style>
+STYLE
+) input.md -o output.html
 
-# Self-contained (embeds images/CSS) - note: --self-contained is deprecated
-pandoc input.md -s --embed-resources --standalone -o output.html
+# Quick version (minimal styling)
+pandoc -f gfm -s input.md -o output.html
+
+# With hard line breaks (newlines become <br>)
+pandoc -f markdown+hard_line_breaks -s input.md -o output.html
+
+# Self-contained (embeds images/CSS)
+pandoc -f gfm -s --embed-resources --standalone input.md -o output.html
 ```
+
+**Format Options:**
+
+| Option | Use When |
+|--------|----------|
+| `-f gfm` | Default choice - handles lists, line breaks, tables correctly |
+| `-f markdown+hard_line_breaks` | Force all newlines to become `<br>` |
+| `-f commonmark` | Strict CommonMark compliance |
 
 ### HTML for Print-to-PDF (No LaTeX Required)
 
@@ -116,8 +137,8 @@ blockquote { border-left: 4px solid #ddd; margin: 1em 0; padding-left: 1em; colo
 @media print { body { max-width: none; } }
 EOF
 
-# Convert with embedded styles
-pandoc input.md -s --toc --toc-depth=2 -c /tmp/print-style.css --embed-resources --standalone -o output.html
+# Convert with embedded styles (ALWAYS use -f gfm)
+pandoc -f gfm input.md -s --toc --toc-depth=2 -c /tmp/print-style.css --embed-resources --standalone -o output.html
 
 # Open and print to PDF (Cmd+P > Save as PDF)
 open output.html
@@ -201,23 +222,25 @@ open PSI-document.docx
 
 ## Troubleshooting
 
-### Lists Not Rendering Properly (HTML)
+### Lists/Lines Running Together (HTML)
 
-If bullet points and numbered lists appear as plain text or run together:
+If bullet points, numbered lists, or consecutive lines merge into one paragraph:
 
-**Cause:** HTML without CSS lacks default list styling in some browsers.
+**Cause:** Standard markdown treats consecutive lines as one paragraph. Lists need blank lines before them.
 
-**Fix:** Use standalone mode with CSS:
+**Fix:** Use GitHub Flavored Markdown (`-f gfm`):
 ```bash
-# Quick fix with inline CSS
-pandoc input.md -s -H <(echo '<style>
-ul,ol{margin:0.5em 0 0.5em 1.5em;padding-left:1em}
-ul{list-style-type:disc}ol{list-style-type:decimal}
-li{margin:0.3em 0}ul ul{list-style-type:circle}
-</style>') -o output.html
+# Always use -f gfm for reliable formatting
+pandoc -f gfm -s input.md -o output.html
 
-# Or use the full print-style.css from "HTML for Print-to-PDF" section
+# For documents where newlines should be <br> tags
+pandoc -f markdown+hard_line_breaks -s input.md -o output.html
 ```
+
+**Why this happens:**
+- Standard markdown: `Line 1\nLine 2` → `<p>Line 1 Line 2</p>` (merged)
+- GFM: Better list detection, handles edge cases
+- `+hard_line_breaks`: `Line 1\nLine 2` → `Line 1<br>Line 2` (preserved)
 
 ### Tables Not Rendering
 
