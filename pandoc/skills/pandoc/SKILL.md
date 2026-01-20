@@ -64,12 +64,21 @@ pandoc input.md --pdf-engine=xelatex -V geometry:margin=1in -o output.pdf
 
 ### Markdown to HTML
 
+**Important:** Basic HTML without CSS may not render lists properly in browsers. Always use `-s` (standalone) with CSS for proper formatting.
+
 ```bash
-# Basic HTML
+# Basic HTML (fragment only - no styling, lists may not render correctly)
 pandoc input.md -o output.html
 
-# Standalone HTML with CSS
+# Standalone HTML with external CSS
 pandoc input.md -s -c style.css -o output.html
+
+# Standalone with inline minimal CSS for proper list rendering
+pandoc input.md -s -H <(echo '<style>
+ul,ol{margin:0.5em 0 0.5em 1.5em;padding-left:1em}
+ul{list-style-type:disc}ol{list-style-type:decimal}
+li{margin:0.3em 0}ul ul,ol ul{list-style-type:circle}
+</style>') -o output.html
 
 # Self-contained (embeds images/CSS) - note: --self-contained is deprecated
 pandoc input.md -s --embed-resources --standalone -o output.html
@@ -86,11 +95,23 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
        max-width: 800px; margin: 0 auto; padding: 2em; line-height: 1.6; }
 h1 { border-bottom: 2px solid #333; padding-bottom: 0.3em; }
 h2 { border-bottom: 1px solid #ccc; padding-bottom: 0.2em; margin-top: 1.5em; }
+h3 { margin-top: 1.2em; }
+/* Lists - critical for proper rendering */
+ul, ol { margin: 0.5em 0 0.5em 1.5em; padding-left: 1em; }
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+li { margin: 0.3em 0; }
+ul ul, ol ul { list-style-type: circle; margin: 0.2em 0 0.2em 1em; }
+ul ol, ol ol { margin: 0.2em 0 0.2em 1em; }
+ul ul ul, ol ul ul { list-style-type: square; }
+/* Tables */
 table { border-collapse: collapse; width: 100%; margin: 1em 0; }
 th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
 th { background-color: #f5f5f5; }
+/* Code */
 code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
 pre { background-color: #f4f4f4; padding: 1em; overflow-x: auto; border-radius: 5px; }
+/* Other */
 blockquote { border-left: 4px solid #ddd; margin: 1em 0; padding-left: 1em; color: #666; }
 @media print { body { max-width: none; } }
 EOF
@@ -179,6 +200,24 @@ open PSI-document.docx
 ```
 
 ## Troubleshooting
+
+### Lists Not Rendering Properly (HTML)
+
+If bullet points and numbered lists appear as plain text or run together:
+
+**Cause:** HTML without CSS lacks default list styling in some browsers.
+
+**Fix:** Use standalone mode with CSS:
+```bash
+# Quick fix with inline CSS
+pandoc input.md -s -H <(echo '<style>
+ul,ol{margin:0.5em 0 0.5em 1.5em;padding-left:1em}
+ul{list-style-type:disc}ol{list-style-type:decimal}
+li{margin:0.3em 0}ul ul{list-style-type:circle}
+</style>') -o output.html
+
+# Or use the full print-style.css from "HTML for Print-to-PDF" section
+```
 
 ### Tables Not Rendering
 
