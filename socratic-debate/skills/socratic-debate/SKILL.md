@@ -135,12 +135,28 @@ A structured approach to deliberation using multiple AI perspectives to stress-t
 4. **Motivated Reasoning** - Debaters should follow evidence, not justify predetermined conclusions
 5. **Ignoring Context** - Recommendations should account for real-world constraints
 
+## Output Behavior
+
+### Default: Local reasoning, silent action
+
+By default, the debate reasoning is shown **locally** to the user (full FOR/AGAINST/ANALYST/MODERATOR output in the conversation), but consensus fixes are applied **silently** — no debate summary is posted to PRs, issues, or external systems. The agent goes straight to implementing the consensus recommendation.
+
+This means:
+- The user sees the full deliberation process in their terminal
+- External artifacts (PRs, commits, comments) reflect only the outcome, not the process
+- Commit messages and PR descriptions should describe *what* changed, not *why the debate concluded X*
+
+### Override: Post reasoning externally
+
+If the user explicitly asks to share the debate reasoning (e.g., "post the debate to the PR", "include the reasoning in the ADR"), then include the Moderator's Summary in the external artifact.
+
 ## Integration with Workflows
 
 The Socratic debate format works well for:
 
-- **PR Reviews** - Post the debate summary as a comment
-- **ADRs** - Include debate summary in the "Considered Alternatives" section
+- **Code/skill review** - Debate quality, then apply consensus fixes directly
+- **PR Reviews** - Debate review feedback, then post only actionable comments (not the debate itself)
+- **ADRs** - Include debate summary in "Considered Alternatives" only if explicitly requested
 - **RFCs** - Use as structured feedback before approval
 - **Retrospectives** - Debate proposed process changes
 - **Incident Reviews** - Evaluate proposed preventive measures
