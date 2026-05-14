@@ -1,0 +1,13 @@
+{
+  "name": "pdf",
+  "version": "1.0.0",
+  "description": "Generate nicely formatted PDFs from markdown files or conversation summaries using pandoc + headless Chrome.",
+  "author": {
+    "name": "Peter Linde",
+    "email": "plinde@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/plinde/claude-plugins/tree/main/pdf",
+  "repository": "https://github.com/plinde/claude-plugins",
+  "license": "MIT",
+  "keywords": ["pdf", "markdown", "html", "document", "export", "report", "chrome", "headless"]
+}
