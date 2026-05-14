@@ -37,6 +37,55 @@ pandoc input.md -s --metadata title="Document Title" -o output.docx
 
 ### Markdown to PDF
 
+**Recommended: Headless Chrome (HTML-to-PDF)**
+
+The best results come from converting markdown to styled HTML first, then using headless Chrome to print to PDF. This preserves CSS styling, table formatting, colors, and code block highlighting — LaTeX-based PDF strips all of this.
+
+```bash
+# Step 1: Convert markdown to styled HTML (use -f gfm)
+pandoc -f gfm -s -H <(cat << 'STYLE'
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:800px;margin:0 auto;padding:2em;line-height:1.6}
+h1{border-bottom:2px solid #333;padding-bottom:0.3em}
+h2{border-bottom:1px solid #ccc;padding-bottom:0.2em;margin-top:1.5em}
+h3{margin-top:1.2em}
+h4{margin-top:1em;color:#555}
+ul,ol{margin:0.5em 0 0.5em 1.5em;padding-left:1em}
+ul{list-style-type:disc}ol{list-style-type:decimal}
+li{margin:0.3em 0}ul ul,ol ul{list-style-type:circle;margin:0.2em 0 0.2em 1em}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #ddd;padding:8px;text-align:left}
+th{background-color:#f5f5f5}
+code{background-color:#f4f4f4;padding:2px 6px;border-radius:3px}
+pre{background-color:#f4f4f4;padding:1em;overflow-x:auto;border-radius:5px}
+blockquote{border-left:4px solid #ddd;margin:1em 0;padding-left:1em;color:#666}
+</style>
+STYLE
+) input.md -o output.html
+
+# Step 2: Convert HTML to PDF via headless Chrome
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless --disable-gpu --no-sandbox \
+  --print-to-pdf=output.pdf \
+  --print-to-pdf-no-header \
+  output.html
+```
+
+**Why headless Chrome over LaTeX:**
+
+| Aspect | Headless Chrome | LaTeX (pdflatex/xelatex) |
+|--------|----------------|--------------------------|
+| Styling | Full CSS — colors, borders, fonts | Stripped to LaTeX defaults |
+| Tables | Rendered exactly like browser | Plain, often truncated |
+| Code blocks | Syntax highlighting preserved | Monospace only |
+| `<details>` tags | Must be removed (won't expand) | Ignored entirely |
+| Dependencies | Chrome (usually installed) | LaTeX (~100MB-4GB install) |
+| Unicode | Full support | Requires xelatex |
+
+**Important:** Remove `<details><summary>` wrappers before PDF conversion — they render collapsed and unclickable in PDF. Replace with plain headings.
+
+**Fallback: LaTeX-based PDF (when Chrome is unavailable)**
+
 ```bash
 # Requires LaTeX - install one of:
 #   brew install --cask basictex      # Smaller (~100MB)
@@ -54,7 +103,7 @@ export PATH="/Library/TeX/texbin:$PATH"
 pandoc input.md --pdf-engine=xelatex -V geometry:margin=1in -o output.pdf
 ```
 
-**PDF Engine Selection:**
+**LaTeX PDF Engine Selection:**
 
 | Engine | Use When |
 |--------|----------|
